@@ -1,6 +1,6 @@
 <template>
   <v-card-text
-    class="d-flex justify-center flex-direction:column align-self-center"
+    class="animate__animated animate__fadeInRight d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
       <v-card-title class="pb-8 text-h4 text-grey">
