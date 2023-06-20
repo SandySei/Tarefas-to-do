@@ -11,7 +11,7 @@
         ></v-btn>
       </template>
 
-      <v-card class="text-center">
+      <v-card class="text-center w-50 align-self-center">
         <a
           class="text-grey mt-4 text-h4 text-decoration-none"
           href="https://br.hubspot.com/blog/marketing/instagram-aesthetic#:~:text=Aesthetic%2C%20em%20uma%20tradu%C3%A7%C3%A3o%20livre,para%20as%20%C3%A1reas%20dos%20neg%C3%B3cios."
