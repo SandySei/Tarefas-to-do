@@ -3,7 +3,7 @@
     class="animate__animated animate__flipInX d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card-title class="pb-8 text-h4 text-grey">
+      <v-card-title class="pb-3 text-h4 text-grey">
         Seja Bem Vindo!
       </v-card-title>
       <v-text-field
