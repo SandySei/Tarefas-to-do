@@ -3,5 +3,18 @@
 </template>
 
 <script setup>
-//
+window.addEventListener("mouseout", function (event) {
+  if (event.clientY <= 0) {
+    document.title = "Não saia, por favor!";
+  }
+});
+
+window.addEventListener("blur", function () {
+  document.title = "Volta aqui fazer o cadastro!";
+});
+
+// Evento disparado quando a janela retoma o foco (o usuário volta para a aba)
+window.addEventListener("focus", function () {
+  document.title = "Aesthetic";
+});
 </script>
