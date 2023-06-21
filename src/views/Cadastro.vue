@@ -45,7 +45,7 @@
         block
         class="mt-2"
         @click="login"
-        >Entrar</v-btn
+        >Cadastrar</v-btn
       >
     </v-form>
   </v-card-text>
