@@ -44,6 +44,7 @@ export default {
     emailRules: [
       (value) => {
         //regex: string + @ + string + . + string
+        if (!/^.+$/.test(value)) return "Campo Obrigatório";
         if (!/\S+@\S+\.\S+/.test(value)) return "Este não é um E-mail válido.";
         if (/\s/.test(value)) return "O E-mail não pode conter espaços.";
         if (/@.*@|\b.com.*\.com\b/.test(value))
@@ -55,6 +56,7 @@ export default {
     password: "",
     passwordRules: [
       (value) => {
+        if (!/^.+$/.test(value)) return "Campo Obrigatório";
         if (!/^.+$/.test(value)) return "Insira sua Senha.";
         return true;
       },

@@ -57,7 +57,7 @@ export default {
     userName: "",
     userRules: [
       (value) => {
-        if (!/^.+$/.test(value)) return "Insira seu nome de usuário.";
+        if (!/^.+$/.test(value)) return "Campo Obrigatório";
         if (/.*[A-Z]/.test(value))
           return "O nome de usuário deve ser em letras minúsculas.";
         if (/\s/.test(value)) return "O nome de não deve ter espaços.";
@@ -68,7 +68,7 @@ export default {
     emailRules: [
       (value) => {
         //regex: string + @ + string + . + string
-        if (!/^.+$/.test(value)) return "Insira seu E-mail.";
+        if (!/^.+$/.test(value)) return "Campo Obrigatório";
         if (!/\S+@\S+\.\S+/.test(value)) return "Este não é um E-mail válido.";
         if (/\s/.test(value)) return "O E-mail não pode conter espaços.";
         if (/@.*@|\b.com.*\.com\b/.test(value))
@@ -82,7 +82,7 @@ export default {
       (value) => {
         //regex: possui número? Uma minúscula? Uma maiúscula?Possui *? Pelo menos 8 caracteres
 
-        if (!/^.+$/.test(value)) return "Insira uma senha";
+        if (!/^.+$/.test(value)) return "Campo Obrigatório";
 
         if (!/.*[0-9]/.test(value)) {
           return "A senha precisa de um número.";
