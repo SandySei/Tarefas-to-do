@@ -2,7 +2,20 @@
   <router-view></router-view>
 </template>
 
-<script setup>
+<script>
+import { setupPrivateApi } from "./api";
+
+export default {
+  mounted() {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      this.$router.push("/");
+      return;
+    }
+    setupPrivateApi(token);
+  },
+};
+
 window.addEventListener("mouseout", function (event) {
   if (event.clientY <= 0) {
     document.title = "Não saia, por favor!";

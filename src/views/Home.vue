@@ -1,5 +1,4 @@
 <template>
-  
   <v-card-text
     class="animate__animated animate__flipInX d-flex justify-center flex-direction:column align-self-center"
   >
@@ -30,7 +29,7 @@
         :disabled="!isFormValid"
         block
         class="mt-2"
-        @click="login"
+        @click="handleSubmit"
         >Entrar</v-btn
       >
     </v-form>
@@ -38,7 +37,11 @@
 </template>
 
 <script>
+import { authApiMixin } from "@/api/auth";
+import { setupPrivateApi } from "@/api";
+
 export default {
+  mixins: [authApiMixin],
   data: () => ({
     email: "",
     emailRules: [
@@ -69,7 +72,24 @@ export default {
       if (!this.FormValid) {
         return;
       }
-      console.log(this.isFormValid);
+    },
+
+    async handleSubmit() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        const { data } = await this.login(payload);
+        const { access_token } = data;
+        setupPrivateApi(access_token, access_token);
+        localStorage.setItem("access_token", access_token);
+        this.$router.push("/inicial");
+        alert("Login efetuado com sucesso!");
+      } catch (err) {
+        alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+      }
     },
   },
 };

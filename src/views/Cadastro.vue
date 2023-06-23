@@ -7,7 +7,7 @@
         Seja Bem Vindo!
       </v-card-title>
       <v-text-field
-        v-model="userName"
+        v-model="username"
         label="Nome de Usuário "
         :rules="userRules"
       ></v-text-field>
@@ -39,12 +39,12 @@
       ></v-checkbox>
 
       <v-btn
+        :disabled="!isFormValid"
         color="grey-darken-2"
         type="submit"
-        :disabled="!isFormValid"
         block
         class="mt-2"
-        @click="login"
+        @click="handleSubmit"
         >Cadastrar</v-btn
       >
     </v-form>
@@ -52,15 +52,22 @@
 </template>
 
 <script>
+/* import required from "@/utils/validation/required";
+ */ import { authApiMixin } from "@/api/auth";
+
 export default {
+  mixins: [authApiMixin],
   data: () => ({
-    userName: "",
+    username: "",
     userRules: [
       (value) => {
         if (!/^.+$/.test(value)) return "Campo Obrigatório";
         if (/.*[A-Z]/.test(value))
           return "O nome de usuário deve ser em letras minúsculas.";
-        if (/\s/.test(value)) return "O nome de não deve ter espaços.";
+        if (/.*[0-9]/.test(value)) return "O nome não deve ter números.";
+        if (/.*[*!#@().$%&]/.test(value))
+          return "O nome não deve conter caracteres.";
+        if (/\s/.test(value)) return "O nome não deve ter espaços.";
         return true;
       },
     ],
@@ -93,10 +100,10 @@ export default {
         if (!/.*[A-Z]/.test(value)) {
           return "A senha precisa de pelo menos uma letra maiúscula.";
         }
-        if (!/.*[*!#@$%&]/.test(value)) {
+        if (!/.*[*!#@().$%&]/.test(value)) {
           return "A senha precisa de pelo menos um caractere especial.";
         }
-        if (!/^[a-zA-Z0-9*!#@$%&]{8,}$/.test(value)) {
+        if (!/^[a-zA-Z0-9*!#@().$%&]{8,}$/.test(value)) {
           return "Sua senha precisa ter pelo menos 8 caracteres.";
         }
         return true;
@@ -115,6 +122,27 @@ export default {
     },
     isPasswordMatch(value) {
       return value === this.password || "As senhas são diferentes.";
+    },
+
+    async handleSubmit() {
+      const payload = {
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      };
+
+      try {
+        await this.register(payload);
+        alert("Usuário Criado com sucesso!");
+        this.$router.push("/");
+      } catch (err) {
+        const status = err.response.status;
+        if (status >= 500 && status < 600) {
+          alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
+        } else {
+          alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+        }
+      }
     },
   },
 };
