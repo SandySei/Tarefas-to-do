@@ -1,0 +1,73 @@
+<template>
+  <v-card-text
+    class="d-flex justify-center flex-direction:column align-self-center"
+  >
+    <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
+      <v-card-title class="pb-3 text-h4 text-grey">
+        Visualização do Item!
+      </v-card-title>
+      <v-text-field v-model="title" label="Título do item "></v-text-field>
+
+      <v-btn
+        :disabled="!isFormValid"
+        color="grey-darken-2"
+        type="submit"
+        block
+        class="mt-2"
+        @click="uptLists"
+        >Atualizar</v-btn
+      >
+      <router-link to="/Inicial"><v-btn block="">Voltar</v-btn></router-link>
+      <v-btn color="grey-darken-2" block class="mt-2" @click="delLists()"
+        >Deletar</v-btn
+      >
+    </v-form>
+  </v-card-text>
+</template>
+<script>
+import { toDoListApiMixin } from "@/api/toDoList";
+export default {
+  mixins: [toDoListApiMixin],
+  data() {
+    const id = this.$route.params.id;
+    let title = "";
+    return {
+      id: id,
+      title: this.title,
+    };
+  },
+  methods: {
+    async getLists() {
+      try {
+        const { data } = await this.viewItem(this.id);
+        this.title = data.title;
+      } catch (err) {
+        alert("Algo deu errado.");
+      }
+    },
+    async delLists() {
+      try {
+        await this.delItem(this.id);
+        alert("Item apagado com sucesso");
+        this.$router.push("/Inicial");
+      } catch (err) {
+        alert("Algo deu errado na hora de deletar.");
+      }
+    },
+    async uptLists() {
+      const payload = {
+        title: this.title,
+      };
+      try {
+        await this.uptItem(this.id, payload);
+        alert("Item atualizado com sucesso");
+      } catch (err) {
+        alert("Algo deu errado na hora de atualizar.");
+      }
+    },
+  },
+  mounted() {
+    this.getLists();
+  },
+};
+</script>
