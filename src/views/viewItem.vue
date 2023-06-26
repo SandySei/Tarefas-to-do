@@ -21,11 +21,26 @@
       <v-btn color="grey-darken-2" block class="mt-2" @click="delLists()"
         >Deletar</v-btn
       >
+      <router-link :to="`/addListItem/${this.id}`">
+        <v-btn color="grey-darken-2" block class="mt-2"
+          >Adicionar List Items</v-btn
+        ></router-link
+      >
+      <v-card v-for="list in itemList" :key="list.id" variant="outlined">
+        <router-link :to="`/viewItemList/${list.id}`">
+          <v-card-title>{{ list.title }}</v-card-title>
+          <v-card-text>
+            {{ formatDate(list.deadline) }}
+            <v-checkbox v-model="list.done" :label="`Finalizado?`"></v-checkbox>
+          </v-card-text>
+        </router-link>
+      </v-card>
     </v-form>
   </v-card-text>
 </template>
 <script>
 import { toDoListApiMixin } from "@/api/toDoList";
+import moment from "moment";
 export default {
   mixins: [toDoListApiMixin],
   data() {
@@ -34,9 +49,22 @@ export default {
     return {
       id: id,
       title: this.title,
+      itemList: [],
     };
   },
   methods: {
+    formatDate(date) {
+      return moment(date).format("DD/MM/YYYY HH:mm");
+    },
+    async getItemLists(id) {
+      try {
+        console.log("o id sandy é" + id);
+        const { data } = await this.viewItem(id);
+        this.itemList = data.items;
+      } catch (err) {
+        alert("Algo deu errado na hora de puxar os item list.");
+      }
+    },
     async getLists() {
       try {
         const { data } = await this.viewItem(this.id);
@@ -61,13 +89,16 @@ export default {
       try {
         await this.uptItem(this.id, payload);
         alert("Item atualizado com sucesso");
+        this.$router.push("/Inicial");
       } catch (err) {
         alert("Algo deu errado na hora de atualizar.");
       }
     },
   },
+
   mounted() {
     this.getLists();
+    this.getItemLists(this.id);
   },
 };
 </script>
