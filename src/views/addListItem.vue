@@ -4,14 +4,14 @@
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
       <v-card-title class="pb-3 text-h4 text-grey">
-        Cadastro de Item!
+        Cadastro de Item da Lista(interno)!
       </v-card-title>
       <v-text-field
         v-model="title"
         label="Título do item "
         :rules="titleRules"
       ></v-text-field>
-
+      <input type="datetime-local" :value="myDate" @input="handleDateChange" />
       <v-btn
         :disabled="!isFormValid"
         color="grey-darken-2"
@@ -26,7 +26,7 @@
         type="submit"
         block
         class="mt-2"
-        :to="`/Inicial/`"
+        :to="`/viewItem/${id}`"
         >Voltar</v-btn
       >
     </v-form>
@@ -34,12 +34,12 @@
 </template>
 
 <script>
-/* import required from "@/utils/validation/required";
- */ import { toDoListApiMixin } from "@/api/toDoList";
+import { toDoListItemApiMixin } from "@/api/toDoItem";
 
 export default {
-  mixins: [toDoListApiMixin],
+  mixins: [toDoListItemApiMixin],
   data: () => ({
+    isFormValid: false,
     title: "",
     titleRules: [
       (value) => {
@@ -49,25 +49,32 @@ export default {
         return true;
       },
     ],
+    myDate: new Date(),
+    id: null,
   }),
+  created() {
+    this.id = this.$route.params.id;
+  },
 
   methods: {
-    /*handleSubmit(event) {
-      event.preventDefault();
-      if (!this.FormValid) {
-        return;
-      }
-    },*/
+    dateToISOString(date) {
+      if (!date) return "";
+      const adjustedDate = new Date(date);
 
+      return adjustedDate.toISOString();
+    },
     async handleSubmit() {
       const payload = {
         title: this.title,
+        deadline: this.dateToISOString(this.myDate),
+        listId: this.id,
       };
+      console.log(payload);
 
       try {
-        await this.addItem(payload);
-        alert("Item criado com sucesso!");
-        this.$router.push("/inicial");
+        await this.addListItem(payload);
+        alert("Item da lista criado com sucesso!");
+        this.$router.push(`/viewItem/${this.id}`);
       } catch (err) {
         const status = err?.response?.status;
         console.log(err);
@@ -77,6 +84,12 @@ export default {
           alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
         }
       }
+    },
+
+    handleDateChange(e) {
+      const { value } = e.target;
+      console.log(value);
+      this.myDate = value;
     },
   },
 };

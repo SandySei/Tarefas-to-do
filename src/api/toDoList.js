@@ -13,10 +13,11 @@ export const toDoListApiMixin = {
       const res = await privateApi.get(`/lists/${id}`);
       return res;
     },
-    async uptItem(id) {
+    async uptItem(id, payload) {
       const res = await privateApi.patch(`/lists/${id}`, payload);
       return res;
     },
+
     async delItem(id) {
       const res = await privateApi.delete(`/lists/${id}`);
       return res;
