@@ -21,6 +21,18 @@ const routes = [
       import(/* webpackChunkName: "home" */ "@/views/viewItem.vue"),
   },
   {
+    path: "/addListItem/:id",
+    name: "addListItem",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "@/views/addListItem.vue"),
+  },
+  {
+    path: "/viewItemList/:id",
+    name: "viewItemList",
+    component: () =>
+      import(/* webpackChunkName: "home" */ "@/views/viewListItem.vue"),
+  },
+  {
     path: "/",
     component: () => import("@/layouts/default/Default.vue"),
     children: [

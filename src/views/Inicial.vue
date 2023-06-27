@@ -1,6 +1,10 @@
 <template>
-  <router-link to="/addItem">Adicionar Item</router-link>
-  <v-card v-for="list in toDoListis" :key="list.id">
+  <router-link to="/addItem"
+    ><v-btn color="grey-darken-2" block class="mt-2"
+      >Adicionar mais item</v-btn
+    ></router-link
+  >
+  <v-card v-for="list in toDoListis" :key="list.id" variant="outlined">
     <router-link :to="`/viewItem/${list.id}`">
       <v-card-title>{{ list.title }}</v-card-title>
     </router-link>
