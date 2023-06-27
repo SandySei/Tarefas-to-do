@@ -18,16 +18,16 @@ export default {
 
 window.addEventListener("mouseout", function (event) {
   if (event.clientY <= 0) {
-    document.title = "Não saia, por favor!";
+    document.title = "Não esqueça as tarefas!";
   }
 });
 
 window.addEventListener("blur", function () {
-  document.title = "Volta aqui fazer o cadastro!";
+  document.title = "Volta, estamos com saudades!";
 });
 
 // Evento disparado quando a janela retoma o foco (o usuário volta para a aba)
 window.addEventListener("focus", function () {
-  document.title = "Aesthetic";
+  document.title = "Tarefas";
 });
 </script>
