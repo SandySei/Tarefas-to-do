@@ -21,7 +21,14 @@
         @click="handleSubmit"
         >Adicionar</v-btn
       >
-      <router-link to="/Inicial">Voltar</router-link>
+      <v-btn
+        color="grey-darken-2"
+        type="submit"
+        block
+        class="mt-2"
+        :to="`/Inicial/`"
+        >Voltar</v-btn
+      >
     </v-form>
   </v-card-text>
 </template>

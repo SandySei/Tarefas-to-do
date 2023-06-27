@@ -54,7 +54,8 @@ export default {
   },
   methods: {
     formatDate(date) {
-      return moment(date).format("DD/MM/YYYY HH:mm");
+      const modifiedDate = moment(date).add(0, "hours");
+      return modifiedDate.format("DD/MM/YYYY HH:mm");
     },
     async getItemLists(id) {
       try {

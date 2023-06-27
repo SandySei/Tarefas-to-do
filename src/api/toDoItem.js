@@ -14,12 +14,12 @@ export const toDoListItemApiMixin = {
       return res;
     },
     async uptListItem(id, payload) {
-      const res = await privateApi.patch(`/item/${id}`, payload);
+      const res = await privateApi.patch(`/items/${id}`, payload);
       return res;
     },
 
     async delListItem(id) {
-      const res = await privateApi.delete(`/item/${id}`);
+      const res = await privateApi.delete(`/items/${id}`);
       return res;
     },
   },

@@ -11,9 +11,7 @@
         label="Título do item "
         :rules="titleRules"
       ></v-text-field>
-      <input type="datetime-local" v-model="myDate" />
-      {{ myDate }}
-      <v-date-picker width="400"></v-date-picker>
+      <input type="datetime-local" :value="myDate" @input="handleDateChange" />
       <v-btn
         :disabled="!isFormValid"
         color="grey-darken-2"
@@ -31,7 +29,6 @@
         :to="`/viewItem/${id}`"
         >Voltar</v-btn
       >
-      <router-link to="/Inicial">Voltar</router-link>
     </v-form>
   </v-card-text>
 </template>
@@ -42,6 +39,7 @@ import { toDoListItemApiMixin } from "@/api/toDoItem";
 export default {
   mixins: [toDoListItemApiMixin],
   data: () => ({
+    isFormValid: false,
     title: "",
     titleRules: [
       (value) => {
@@ -59,19 +57,16 @@ export default {
   },
 
   methods: {
-    /*    dateToISOString(date) {
+    dateToISOString(date) {
       if (!date) return "";
-
       const adjustedDate = new Date(date);
-      adjustedDate.setHours(adjustedDate.getHours() - 3);
 
-      return adjustedDate.toISOString().slice(0, 16);
-    },*/
-
+      return adjustedDate.toISOString();
+    },
     async handleSubmit() {
       const payload = {
         title: this.title,
-        deadline: this.myDate,
+        deadline: this.dateToISOString(this.myDate),
         listId: this.id,
       };
       console.log(payload);
@@ -89,6 +84,12 @@ export default {
           alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
         }
       }
+    },
+
+    handleDateChange(e) {
+      const { value } = e.target;
+      console.log(value);
+      this.myDate = value;
     },
   },
 };
