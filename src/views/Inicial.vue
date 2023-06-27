@@ -1,6 +1,9 @@
 <template>
+  <router-link to="/addItem">Adicionar Item</router-link>
   <v-card v-for="list in toDoListis" :key="list.id">
-    <v-card-title>{{ list.title }}</v-card-title>
+    <router-link :to="`/viewItem/${list.id}`">
+      <v-card-title>{{ list.title }}</v-card-title>
+    </router-link>
   </v-card>
 </template>
 
