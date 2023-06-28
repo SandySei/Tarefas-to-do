@@ -70,7 +70,6 @@ export default {
         this.$router.push("/inicial");
       } catch (err) {
         const status = err?.response?.status;
-        console.log(err);
         if (status >= 500 && status < 600) {
           alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
         } else {

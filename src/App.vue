@@ -1,11 +1,30 @@
 <template>
-  <router-view></router-view>
+  <router-view
+    @snackbar="setupSnackbar"
+    :isSnackBarOpen="isSnackBarOpen"
+  ></router-view>
+  <v-snackbar :timeout="2000" color="red-accent-4" v-model="isSnackBarOpen">
+    {{ snackbarText }}
+  </v-snackbar>
 </template>
 
 <script>
 import { setupPrivateApi } from "./api";
 
 export default {
+  data() {
+    return {
+      isSnackBarOpen: false,
+      snackbarText: "",
+    };
+  },
+  methods: {
+    setupSnackbar(message) {
+      console.log(message);
+      this.isSnackBarOpen = true;
+      this.snackbarText = message;
+    },
+  },
   mounted() {
     const token = localStorage.getItem("access_token");
     if (!token) {
@@ -23,7 +42,7 @@ window.addEventListener("mouseout", function (event) {
 });
 
 window.addEventListener("blur", function () {
-  document.title = "Volta, estamos com saudades!";
+  document.title = "Não esqueça as TAREFAS!";
 });
 
 // Evento disparado quando a janela retoma o foco (o usuário volta para a aba)

@@ -59,7 +59,6 @@ export default {
     },
     async getItemLists(id) {
       try {
-        console.log("o id sandy é" + id);
         const { data } = await this.viewItem(id);
         this.itemList = data.items;
       } catch (err) {

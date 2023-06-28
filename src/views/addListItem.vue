@@ -69,7 +69,6 @@ export default {
         deadline: this.dateToISOString(this.myDate),
         listId: this.id,
       };
-      console.log(payload);
 
       try {
         await this.addListItem(payload);
@@ -77,7 +76,6 @@ export default {
         this.$router.push(`/viewItem/${this.id}`);
       } catch (err) {
         const status = err?.response?.status;
-        console.log(err);
         if (status >= 500 && status < 600) {
           alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
         } else {
@@ -88,7 +86,6 @@ export default {
 
     handleDateChange(e) {
       const { value } = e.target;
-      console.log(value);
       this.myDate = value;
     },
   },

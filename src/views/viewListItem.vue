@@ -58,6 +58,8 @@ export default {
     id: null,
     done: Boolean,
     idPai: "",
+    isSnackBarOpen: false,
+    snackbarText: "",
   }),
   created() {
     this.id = this.$route.params.id;
@@ -80,7 +82,11 @@ export default {
         this.done = data.done;
         this.idPai = data.listId;
       } catch (err) {
-        alert("Algo deu errado na hora de puxar esse item list.");
+        this.$emit(
+          "snackbar",
+          "Algo deu errado na hora de puxar esse item list!"
+        );
+        this.isSnackBarOpen = true;
       }
     },
     async handleSubmit() {
@@ -90,30 +96,46 @@ export default {
 
       try {
         await this.uptListItem(this.id, payload);
-        alert("Item da lista atualizado com sucesso!");
+        this.$emit("snackbar", "Item da lista atualizado com sucesso!");
+        this.isSnackBarOpen = true;
         this.$router.push(`/viewItem/${this.idPai}`);
       } catch (err) {
         const status = err?.response?.status;
-        console.log(err);
         if (status >= 500 && status < 600) {
-          alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
+          this.$emit(
+            "snackbar",
+            "Ocorreu um erro no servidor! Tente novamente mais tarde!"
+          );
+          this.isSnackBarOpen = true;
         } else {
-          alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+          this.$emit(
+            "snackbar",
+            "Algo deu errado. Pedimos desculpas pelo inconveniente!"
+          );
+          this.isSnackBarOpen = true;
         }
       }
     },
     async deleteItem() {
       try {
         await this.delListItem(this.id);
-        alert("Item da lista apagado com sucesso!");
+        this.$emit("snackbar", "Item da lista apagado com sucesso!");
+        this.isSnackBarOpen = true;
         this.$router.push(`/viewItem/${this.idPai}`);
       } catch (err) {
         const status = err?.response?.status;
-        console.log(err);
         if (status >= 500 && status < 600) {
-          alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
+          this.$emit(
+            "snackbar",
+            "Ocorreu um erro no servidor! Tente novamente mais tarde!"
+          );
+          this.isSnackBarOpen = true;
         } else {
-          alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+          this.$emit(
+            "snackbar",
+            "Algo deu errado. Pedimos desculpas pelo inconveniente!"
+          );
+          this.isSnackBarOpen = true;
         }
       }
     },
