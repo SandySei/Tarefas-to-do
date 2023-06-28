@@ -50,6 +50,8 @@ export default {
       id: id,
       title: this.title,
       itemList: [],
+      isSnackBarOpen: false,
+      snackbarText: "",
     };
   },
   methods: {
@@ -62,7 +64,11 @@ export default {
         const { data } = await this.viewItem(id);
         this.itemList = data.items;
       } catch (err) {
-        alert("Algo deu errado na hora de puxar os item list.");
+        this.$emit(
+          "snackbar",
+          "Algo deu errado na hora de puxar os item list!"
+        );
+        this.isSnackBarOpen = true;
       }
     },
     async getLists() {
@@ -70,12 +76,15 @@ export default {
         const { data } = await this.viewItem(this.id);
         this.title = data.title;
       } catch (err) {
-        alert("Algo deu errado.");
+        this.$emit("snackbar", "Algo deu errado!");
+        this.isSnackBarOpen = true;
       }
     },
     async delLists() {
       try {
         await this.delItem(this.id);
+        this.$emit("snackbar", "Item apagado com sucesso!");
+        this.isSnackBarOpen = true;
         alert("Item apagado com sucesso");
         this.$router.push("/Inicial");
       } catch (err) {
