@@ -85,10 +85,10 @@ export default {
         await this.delItem(this.id);
         this.$emit("snackbar", "Item apagado com sucesso!");
         this.isSnackBarOpen = true;
-        alert("Item apagado com sucesso");
         this.$router.push("/Inicial");
       } catch (err) {
-        alert("Algo deu errado na hora de deletar.");
+        this.$emit("snackbar", "Algo deu errado na hora de deletar!");
+        this.isSnackBarOpen = true;
       }
     },
     async uptLists() {
@@ -97,10 +97,12 @@ export default {
       };
       try {
         await this.uptItem(this.id, payload);
-        alert("Item atualizado com sucesso");
+        this.$emit("snackbar", "Item atualizado com sucesso!!");
+        this.isSnackBarOpen = true;
         this.$router.push("/Inicial");
       } catch (err) {
-        alert("Algo deu errado na hora de atualizar.");
+        this.$emit("snackbar", "Algo deu errado na hora de Atualizar!");
+        this.isSnackBarOpen = true;
       }
     },
   },
