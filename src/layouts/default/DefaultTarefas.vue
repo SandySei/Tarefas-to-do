@@ -40,7 +40,7 @@
 
           <v-list class="d-flex align-end flex-grow-1" density="compact" nav>
             <v-list-item
-              class="bg-red-accent-4 w-100"
+              class="bg-red-darken-4 w-100"
               @click="logOut"
               prepend-icon="mdi-power"
               title="Sair"

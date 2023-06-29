@@ -43,15 +43,15 @@ import { toDoListApiMixin } from "@/api/toDoList";
 import moment from "moment";
 export default {
   mixins: [toDoListApiMixin],
+  props: {
+    selectedList: String,
+  },
   data() {
-    const id = this.$route.params.id;
     let title = "";
     return {
-      id: id,
+      id: this.$props.selectedList,
       title: this.title,
       itemList: [],
-      isSnackBarOpen: false,
-      snackbarText: "",
     };
   },
   methods: {
@@ -68,27 +68,23 @@ export default {
           "snackbar",
           "Algo deu errado na hora de puxar os item list!"
         );
-        this.isSnackBarOpen = true;
       }
     },
-    async getLists() {
+    async getLists(id) {
       try {
-        const { data } = await this.viewItem(this.id);
+        const { data } = await this.viewItem(id);
         this.title = data.title;
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado!");
-        this.isSnackBarOpen = true;
       }
     },
     async delLists() {
       try {
         await this.delItem(this.id);
         this.$emit("snackbar", "Item apagado com sucesso!");
-        this.isSnackBarOpen = true;
         this.$router.push("/Inicial");
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de deletar!");
-        this.isSnackBarOpen = true;
       }
     },
     async uptLists() {
@@ -98,18 +94,20 @@ export default {
       try {
         await this.uptItem(this.id, payload);
         this.$emit("snackbar", "Item atualizado com sucesso!!");
-        this.isSnackBarOpen = true;
         this.$router.push("/Inicial");
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de Atualizar!");
-        this.isSnackBarOpen = true;
       }
     },
   },
 
   mounted() {
-    this.getLists();
+    this.getLists(this.id);
     this.getItemLists(this.id);
+  },
+  updated() {
+    this.getLists(this.$props.selectedList);
+    this.getItemLists(this.$props.selectedList);
   },
 };
 </script>

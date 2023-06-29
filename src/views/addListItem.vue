@@ -72,14 +72,20 @@ export default {
 
       try {
         await this.addListItem(payload);
-        alert("Item da lista criado com sucesso!");
+        this.$emit("snackbar", "Item da lista criado com sucesso!");
         this.$router.push(`/viewItem/${this.id}`);
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {
-          alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
+          this.$emit(
+            "snackbar",
+            "Ocorreu um erro no servidor! Tente novamente mais tarde!"
+          );
         } else {
-          alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+          this.$emit(
+            "snackbar",
+            "Algo deu errado. Pedimos desculpas pelo inconveniente!"
+          );
         }
       }
     },

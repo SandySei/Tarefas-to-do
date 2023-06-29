@@ -3,7 +3,7 @@
     @snackbar="setupSnackbar"
     :isSnackBarOpen="isSnackBarOpen"
   ></router-view>
-  <v-snackbar :timeout="2000" color="red-accent-4" v-model="isSnackBarOpen">
+  <v-snackbar :timeout="2000" color="cyan-accent-3" v-model="isSnackBarOpen">
     {{ snackbarText }}
   </v-snackbar>
 </template>

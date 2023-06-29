@@ -52,13 +52,6 @@ export default {
   }),
 
   methods: {
-    /*handleSubmit(event) {
-      event.preventDefault();
-      if (!this.FormValid) {
-        return;
-      }
-    },*/
-
     async handleSubmit() {
       const payload = {
         title: this.title,
@@ -66,14 +59,20 @@ export default {
 
       try {
         await this.addItem(payload);
-        alert("Item criado com sucesso!");
+        this.$emit("snackbar", "Item criado com sucesso!");
         this.$router.push("/inicial");
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {
-          alert("Ocorreu um erro no servidor! Tente novamente mais tarde.");
+          this.$emit(
+            "snackbar",
+            "Ocorreu um erro no servidor! Tente novamente mais tarde!"
+          );
         } else {
-          alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+          this.$emit(
+            "snackbar",
+            "Algo deu errado. Pedimos desculpas pelo inconveniente!"
+          );
         }
       }
     },
