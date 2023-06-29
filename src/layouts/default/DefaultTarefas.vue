@@ -7,18 +7,17 @@
         class="bg-grey-darken-4 elevation-20"
       >
         <div class="h-100 d-flex flex-column">
-          <v-list class="">
+          <v-list>
             <v-img
               height="100"
               src="@/assets/Tarefas1.png"
-              class="pa-2"
             ></v-img>
           </v-list>
 
           <v-list density="compact" nav>
             <v-list-item
               prepend-icon="mdi mdi-plus"
-              title="Adicionar Pasta de Tarefas"
+              title="Adicionar Lista de Tarefas"
               to="/addItem"
             ></v-list-item>
 
@@ -29,7 +28,7 @@
             ></v-list-item>
 
             <v-list-item
-              prepend-icon="mdi-folder-outline"
+              prepend-icon="mdi-format-list-checks"
               v-for="list in toDoListis"
               :key="list.id"
               :to="`/viewItem/${list.id}`"
@@ -49,13 +48,14 @@
         </div>
       </v-navigation-drawer>
 
-      <v-main style="height: 600px"></v-main>
-      <router-view
-        @getLists="getLists"
-        :lists="toDoListis"
-        :selectedList="$route.params.id"
-        @snackbar="sendSnackbarEvent"
-      ></router-view>
+      <v-main>
+        <router-view
+          @getLists="getLists"
+          :lists="toDoListis"
+          :selectedList="$route.params.id"
+          @snackbar="sendSnackbarEvent"
+        ></router-view>
+    </v-main>
     </v-layout>
   </v-card>
 </template>
