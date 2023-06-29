@@ -1,39 +1,38 @@
-  <template>
-    <router-view
-      @snackbar="setupSnackbar"
-      :isSnackBarOpen="isSnackBarOpen"
-    ></router-view>
-    <v-snackbar :timeout="2000" color="red-accent-4" v-model="isSnackBarOpen">
-      {{ snackbarText }}
-    </v-snackbar>
-  </template>
+<template>
+  <router-view
+    @snackbar="setupSnackbar"
+    :isSnackBarOpen="isSnackBarOpen"
+  ></router-view>
+  <v-snackbar :timeout="2000" color="red-accent-4" v-model="isSnackBarOpen">
+    {{ snackbarText }}
+  </v-snackbar>
+</template>
 
-  <script>
-  import { setupPrivateApi } from "./api";
+<script>
+import { setupPrivateApi } from "./api";
 
-  export default {
-    data() {
-      return {
-        isSnackBarOpen: false,
-        snackbarText: "",
-      };
+export default {
+  data() {
+    return {
+      isSnackBarOpen: false,
+      snackbarText: "",
+    };
+  },
+  methods: {
+    setupSnackbar(message) {
+      this.isSnackBarOpen = true;
+      this.snackbarText = message;
     },
-    methods: {
-      setupSnackbar(message) {
-        console.log(message);
-        this.isSnackBarOpen = true;
-        this.snackbarText = message;
-      },
-    },
-    mounted() {
-      const token = localStorage.getItem("access_token");
-      if (!token) {
-        this.$router.push("/");
-        return;
-      }
-      setupPrivateApi(token);
-    },
-  };
+  },
+  mounted() {
+    const token = localStorage.getItem("access_token");
+    if (!token) {
+      this.$router.push("/");
+      return;
+    }
+    setupPrivateApi(token);
+  },
+};
 
 window.addEventListener("mouseout", function (event) {
   if (event.clientY <= 0) {

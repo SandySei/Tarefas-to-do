@@ -1,5 +1,5 @@
 <template>
-  <v-card class="bg-blue">
+  <v-card>
     <v-layout>
       <v-navigation-drawer
         expand-on-hover
@@ -50,8 +50,12 @@
       </v-navigation-drawer>
 
       <v-main style="height: 600px"></v-main>
-
-      <router-view @getLists="getLists" :lists="toDoListis"></router-view>
+      <router-view
+        @getLists="getLists"
+        :lists="toDoListis"
+        :selectedList="$route.params.id"
+        @snackbar="sendSnackbarEvent"
+      ></router-view>
     </v-layout>
   </v-card>
 </template>
@@ -63,9 +67,7 @@ export default {
   mixins: [toDoListApiMixin],
   data() {
     return {
-      toDoListis: [], 
-      isSnackBarOpen: false,
-      snackbarText: "",
+      toDoListis: [],
     };
   },
 
@@ -76,19 +78,19 @@ export default {
         this.toDoListis = data;
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado!");
-        this.isSnackBarOpen = true;
       }
     },
     logOut() {
       try {
         localStorage.removeItem("access_token");
-        this.isSnackBarOpen = true;
         this.$emit("snackbar", "Logout realizado com sucesso!");
         this.$router.push("/");
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado!");
-        this.isSnackBarOpen = true;
       }
+    },
+    sendSnackbarEvent(message) {
+      this.$emit("snackbar", message);
     },
   },
   mounted() {

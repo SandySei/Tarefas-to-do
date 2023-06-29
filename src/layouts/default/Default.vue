@@ -21,16 +21,27 @@
         class="d-flex flex-row align-center bg-grey-darken-4 w-100 h-85 elevation-20 rounded-b-xl"
       >
         <v-img :width="60" aspect-ratio="3/4" src="@/assets/imagens/Home.jpg">
-          <info class="d-flex align-start mt-2 ml-2" ></info
+          <info class="d-flex align-start mt-2 ml-2"></info
         ></v-img>
         <v-main class="w-25">
-          <router-view></router-view>
+          <router-view @snackbar="sendSnackbarEvent"></router-view>
         </v-main>
       </v-card>
     </v-container>
   </v-app>
 </template>
 
-<script setup>
+<script>
 import Info from "@/components/Info.vue";
+
+export default {
+  components: {
+    Info,
+  },
+  methods: {
+    sendSnackbarEvent(message) {
+      this.$emit("snackbar", message);
+    },
+  },
+};
 </script>
