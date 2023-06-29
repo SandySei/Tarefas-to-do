@@ -85,10 +85,13 @@ export default {
         const { access_token } = data;
         setupPrivateApi(access_token, access_token);
         localStorage.setItem("access_token", access_token);
+        this.$emit("snackbar", "Login efetuado com sucesso!");
         this.$router.push("/inicial");
-        alert("Login efetuado com sucesso!");
       } catch (err) {
-        alert("Algo deu errado. Pedimos desculpas pelo inconveniente.");
+        this.$emit(
+          "snackbar",
+          "Algo deu errado. Pedimos desculpas pelo inconveniente!"
+        );
       }
     },
   },
