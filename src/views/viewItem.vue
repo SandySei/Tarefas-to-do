@@ -3,20 +3,44 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card-title class="pb-3 text-h4 text-grey">
-        Visualização do Item!
-      </v-card-title>
-      <v-text-field v-model="title" label="Título do item "></v-text-field>
+      <v-card class="d-flex w-100 bg-red">
+        <v-dialog v-model="dialog" width="auto">
+          <template v-slot:activator="{ props }">
+            <v-btn icon="mdi-pencil" v-bind="props" size="small"></v-btn>
+          </template>
+          <v-card>
+            <v-container class="bg-grey-darken-3">
+              <v-card-text class="text-h4 text-cyan text-center"
+                >Aletere o título</v-card-text
+              >
+              <v-text-field
+                v-model="title"
+                label="Título do item "
+              ></v-text-field>
+              <v-card-text>
+                Se você preferir manter o título intacto, basta clicar em
+                qualquer parte fora do campo para encerrar.</v-card-text
+              >
+              <v-card-actions class="w-100">
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="red"
+                  variant="default"
+                  block
+                  class="mt-2 w-50"
+                  @click="uptLists"
+                  >Atualizar</v-btn
+                >
+              </v-card-actions>
+            </v-container>
+          </v-card>
+        </v-dialog>
 
-      <v-btn
-        :disabled="!isFormValid"
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        @click="uptLists"
-        >Atualizar</v-btn
-      >
+        <v-card-title class="ml-3 text-h4 text-black">
+          {{ this.title }}
+        </v-card-title>
+      </v-card>
+
       <router-link to="/Inicial"><v-btn block="">Voltar</v-btn></router-link>
       <v-btn color="grey-darken-2" block class="mt-2" @click="delLists()"
         >Deletar</v-btn
@@ -52,6 +76,7 @@ export default {
       id: this.$props.selectedList,
       title: this.title,
       itemList: [],
+      dialog: false,
     };
   },
   methods: {
@@ -94,7 +119,7 @@ export default {
       try {
         await this.uptItem(this.id, payload);
         this.$emit("snackbar", "Item atualizado com sucesso!!");
-        this.$router.push("/Inicial");
+        this.dialog = false;
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de Atualizar!");
       }
