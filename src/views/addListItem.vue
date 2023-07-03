@@ -3,32 +3,43 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card-title class="pb-3 text-h4 text-grey">
-        Cadastro de Item da Lista(interno)!
-      </v-card-title>
-      <v-text-field
-        v-model="title"
-        label="Título do item "
-        :rules="titleRules"
-      ></v-text-field>
-      <input type="datetime-local" :value="myDate" @input="handleDateChange" />
       <v-btn
-        :disabled="!isFormValid"
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        @click="handleSubmit"
-        >Adicionar</v-btn
-      >
-      <v-btn
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
+        class="w-100 mb-3"
+        prepend-icon="mdi-arrow-left"
         :to="`/viewItem/${id}`"
-        >Voltar</v-btn
       >
+        Voltar
+      </v-btn>
+
+      <v-card-title
+        class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded text-center"
+      >
+        Adicionar Item na Lista!
+      </v-card-title>
+
+      <v-card class="pa-4 bg-grey-lighten-2">
+        <v-text-field
+          prepend-icon="mdi-pencil"
+          v-model="title"
+          label="Título do item "
+          :rules="titleRules"
+        ></v-text-field>
+
+        <input
+          type="datetime-local"
+          :value="myDate"
+          @input="handleDateChange"
+          class="custom-input ma-2 ml-10 mb-5"
+        />
+
+        <v-btn
+          class="w-100 bg-grey-darken-2"
+          :disabled="!isFormValid"
+          prepend-icon="mdi-plus"
+          @click="handleSubmit"
+          >Adicionar</v-btn
+        >
+      </v-card>
     </v-form>
   </v-card-text>
 </template>
@@ -97,3 +108,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.custom-input {
+  width: 50%;
+  height: 60px;
+  padding: 8px;
+  background-color: rgb(244, 244, 244);
+  border-radius: 4px;
+}
+</style>

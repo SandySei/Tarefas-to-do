@@ -3,32 +3,34 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card-title class="pb-3 text-h4 text-grey">
-        Cadastro de Item!
-      </v-card-title>
-      <v-text-field
-        v-model="title"
-        label="Título do item "
-        :rules="titleRules"
-      ></v-text-field>
+      <v-btn class="w-100 mb-3" prepend-icon="mdi-arrow-left" :to="`/Inicial/`">
+        Voltar
+      </v-btn>
 
-      <v-btn
-        :disabled="!isFormValid"
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        @click="handleSubmit"
-        >Adicionar</v-btn
-      >
-      <v-btn
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        :to="`/Inicial/`"
-        >Voltar</v-btn
-      >
+      <v-card-title
+          class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded text-center"
+        >
+          Adicionar Lista de Tarefas
+        </v-card-title>
+
+      <v-card class="pa-4 bg-grey-lighten-2">
+    
+        <v-text-field
+        prepend-icon="mdi-pencil"
+          v-model="title"
+          label="Título do item "
+          :rules="titleRules"
+        ></v-text-field>
+
+        <v-btn
+          class="w-100 bg-grey-darken-2"
+          :disabled="!isFormValid"
+          prepend-icon="mdi-plus"
+          @click="handleSubmit"
+          >Adicionar</v-btn
+        >
+
+      </v-card>
     </v-form>
   </v-card-text>
 </template>

@@ -3,46 +3,53 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card-title class="pb-3 text-h4 text-grey">
-        Visualizar de Item da Lista!
-      </v-card-title>
-      <v-text-field
-        v-model="title"
-        label="Título do item "
-        readonly=""
-      ></v-text-field>
-      <input
-        type="datetime-local"
-        :value="dateToISOString(myDate)"
-        @input="myDate = new Date($event.target.value)"
-        readonly
-      />
-      <v-checkbox v-model="this.done" :label="`Finalizado?`"></v-checkbox>
       <v-btn
-        :disabled="!isFormValid"
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        @click="handleSubmit"
-        >Atualizar</v-btn
-      >
-      <v-btn
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
-        @click="deleteItem"
-        >Apagar</v-btn
-      >
-      <v-btn
-        color="grey-darken-2"
-        type="submit"
-        block
-        class="mt-2"
+        class="w-100 mb-3"
+        prepend-icon="mdi-arrow-left"
         :to="`/viewItem/${idPai}`"
-        >Voltar</v-btn
       >
+        Voltar
+      </v-btn>
+
+      <v-card-title class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded  text-center">
+        Editar Item da Lista!
+      </v-card-title>
+
+      <v-card class="pa-4 bg-grey-lighten-2">
+        <v-text-field
+          v-model="title"
+          prepend-icon="mdi-pencil"
+          label="Item da Lista"
+        ></v-text-field>
+
+        <div class="d-flex">
+          <v-checkbox v-model="this.done" :label="`Finalizado?`"></v-checkbox>
+
+          <input
+            type="datetime-local"
+            :value="dateToISOString(myDate)"
+            @input="myDate = new Date($event.target.value)"
+            class="custom-input ma-2 mb-3"
+          />
+        </div>
+
+        <div class="d-flex flex-row w-100">
+          <v-btn
+            class="w-50 bg-grey-darken-2"
+            prepend-icon="mdi-refresh"
+            @click="handleSubmit"
+            >Atualizar</v-btn
+          >
+          <v-btn
+            class="w-50 ml-1"
+            color="grey-darken-2"
+            type="submit"
+            prepend-icon="mdi-delete"
+            @click="deleteItem"
+            >Apagar</v-btn
+          >
+        </div>
+      </v-card>
     </v-form>
   </v-card-text>
 </template>
@@ -87,8 +94,11 @@ export default {
       }
     },
     async handleSubmit() {
+      const dataCorrigida = new Date(this.myDate);
       const payload = {
         done: this.done,
+        title: this.title,
+        deadline: dataCorrigida.toISOString,
       };
 
       try {
@@ -136,3 +146,12 @@ export default {
   },
 };
 </script>
+
+<style>
+.custom-input {
+  width: 50%;
+  padding: 8px;
+  background-color: rgb(244, 244, 244);
+  border-radius: 4px;
+}
+</style>

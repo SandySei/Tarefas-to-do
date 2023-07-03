@@ -3,22 +3,26 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent class="w-50">
-      <v-card class="d-flex w-100 bg-cyan pa-2 pt-3 mb-3">
-        <v-card-title class="ml-3 text-h4 text-black">
+      <router-link class="w-50" to="/Inicial">
+        <v-btn class="w-100 mb-3" prepend-icon="mdi-arrow-left">
+          Voltar
+        </v-btn></router-link
+      >
+
+      <v-card class="d-flex w-100 bg-red-accent-4 pa-2 pt-3 mb-3 align-center">
+        <v-icon icon="mdi-list-status" size="x-large" class="ml-4"></v-icon>
+        <v-card-title class="ml-3 text-h4 text-white ma-2">
           {{ this.title }}
         </v-card-title>
       </v-card>
 
       <div class="d-flex flex-row w-100 justify-center">
-        <router-link class="w-50" to="/Inicial">
-          <v-btn class="w-100" prepend-icon="mdi-arrow-left">
-            Voltar
-          </v-btn></router-link
-        >
-
         <v-dialog v-model="dialog1" width="auto">
           <template v-slot:activator="{ props }">
-            <v-btn class="w-25" prepend-icon="mdi-pencil" v-bind="props"
+            <v-btn
+              class="w-50 mr-1 bg-grey-darken-3"
+              prepend-icon="mdi-pencil"
+              v-bind="props"
               >Editar</v-btn
             >
           </template>
@@ -54,7 +58,10 @@
 
         <v-dialog v-model="dialog2" width="auto">
           <template v-slot:activator="{ props }">
-            <v-btn class="w-25" prepend-icon="mdi-delete" v-bind="props"
+            <v-btn
+              class="w-50 bg-grey-darken-3"
+              prepend-icon="mdi-delete"
+              v-bind="props"
               >Apagar</v-btn
             >
           </template>
@@ -85,16 +92,23 @@
       </div>
 
       <router-link :to="`/addListItem/${this.id}`">
-        <v-btn color="grey-darken-2" block class="mt-2"
-          >Adicionar List Items</v-btn
+        <v-btn class="w-100 mt-1 mb-3 bg-grey-darken-3" prepend-icon="mdi-plus"
+          >Adicionar Item na Lista</v-btn
         ></router-link
       >
-      <v-card v-for="list in itemList" :key="list.id" variant="outlined">
-        <router-link :to="`/viewItemList/${list.id}`">
+      <v-card
+        v-for="list in itemList"
+        :key="list.id"
+        class="bg-grey-lighten-3 mb-2 d-flex flex-row"
+      >
+        <router-link
+          class="text-decoration-none text-grey-darken-3 d-flex flex-row"
+          :to="`/viewItemList/${list.id}`"
+        >
+          <v-checkbox v-model="list.done"></v-checkbox>
           <v-card-title>{{ list.title }}</v-card-title>
-          <v-card-text>
-            {{ formatDate(list.deadline) }}
-            <v-checkbox v-model="list.done" :label="`Finalizado?`"></v-checkbox>
+          <v-card-text class="align-self-end just justify-end">
+            <div class="deadline">{{ formatDate(list.deadline) }}</div>
           </v-card-text>
         </router-link>
       </v-card>
@@ -175,3 +189,11 @@ export default {
   },
 };
 </script>
+<style>
+.deadline {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 8px;
+}
+</style>
