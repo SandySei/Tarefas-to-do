@@ -23,11 +23,13 @@
       </div>
     </div>
 
+    <div class="animate__animated animate__flipInX">
     <v-img
       height="100"
       src="@/assets/TarefasInicial.png"
-      class="mt-5 mb-5"
+      class="mt-5 mb-5 "
     ></v-img>
+    </div>
 
     <div
       class="bg-grey-darken-4 pa-4 rounded-lg elevation-10 mb-5"

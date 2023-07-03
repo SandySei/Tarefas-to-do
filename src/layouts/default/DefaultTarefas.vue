@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card elevation="0">
     <v-layout>
       <v-navigation-drawer
         expand-on-hover
@@ -119,8 +119,4 @@ export default {
 };
 </script>
 
-<style>
-main {
-  height: 100vh;
-}
-</style>
+<style></style>
