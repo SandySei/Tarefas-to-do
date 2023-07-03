@@ -98,7 +98,6 @@ export default {
         localStorage.removeItem("access_token");
         this.$emit("snackbar", "Logout realizado com sucesso!");
         this.$router.push("/");
-        window.location.reload();
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado!");
       }
