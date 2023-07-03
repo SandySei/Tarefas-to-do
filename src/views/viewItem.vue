@@ -141,6 +141,9 @@ export default {
       try {
         const { data } = await this.viewItem(id);
         this.itemList = data.items;
+
+         // Ordena o array em ordem alfabética
+         this.itemList.sort((a, b) => a.title.localeCompare(b.title));
       } catch (err) {
         this.$emit(
           "snackbar",
