@@ -2,11 +2,25 @@
   <v-card-text
     class="d-flex justify-center flex-direction:column align-self-center"
   >
-    <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-card class="d-flex w-100 bg-red">
-        <v-dialog v-model="dialog" width="auto">
+    <v-form fast-fail @submit.prevent class="w-50">
+      <v-card class="d-flex w-100 bg-cyan pa-2 pt-3 mb-3">
+        <v-card-title class="ml-3 text-h4 text-black">
+          {{ this.title }}
+        </v-card-title>
+      </v-card>
+
+      <div class="d-flex flex-row w-100 justify-center">
+        <router-link class="w-50" to="/Inicial">
+          <v-btn class="w-100" prepend-icon="mdi-arrow-left">
+            Voltar
+          </v-btn></router-link
+        >
+
+        <v-dialog v-model="dialog1" width="auto">
           <template v-slot:activator="{ props }">
-            <v-btn icon="mdi-pencil" v-bind="props" size="small"></v-btn>
+            <v-btn class="w-25" prepend-icon="mdi-pencil" v-bind="props"
+              >Editar</v-btn
+            >
           </template>
           <v-card>
             <v-container class="bg-grey-darken-3">
@@ -19,12 +33,14 @@
               ></v-text-field>
               <v-card-text>
                 Se você preferir manter o título intacto, basta clicar em
-                qualquer parte fora do campo para encerrar.</v-card-text
+                qualquer parte fora do campo cinza escuro para
+                encerrar.</v-card-text
               >
               <v-card-actions class="w-100">
                 <v-spacer></v-spacer>
                 <v-btn
                   color="red"
+                  v-model="isFormValid"
                   variant="default"
                   block
                   class="mt-2 w-50"
@@ -36,15 +52,38 @@
           </v-card>
         </v-dialog>
 
-        <v-card-title class="ml-3 text-h4 text-black">
-          {{ this.title }}
-        </v-card-title>
-      </v-card>
+        <v-dialog v-model="dialog2" width="auto">
+          <template v-slot:activator="{ props }">
+            <v-btn class="w-25" prepend-icon="mdi-delete" v-bind="props"
+              >Apagar</v-btn
+            >
+          </template>
+          <v-card>
+            <v-container class="bg-grey-darken-3">
+              <v-card-text class="text-h4 text-cyan text-center"
+                >Tem certeza que quer apagar a lista: <br /><br />
+                {{ this.title }}?</v-card-text
+              >
+              <v-card-text>
+                Se você preferir manter a lista, basta clicar em qualquer parte
+                fora do campo cinza escuro para encerrar.</v-card-text
+              >
+              <v-card-actions class="w-100">
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="red"
+                  variant="default"
+                  block
+                  class="mt-2 w-50"
+                  @click="delLists()"
+                  >Apagar</v-btn
+                >
+              </v-card-actions>
+            </v-container>
+          </v-card>
+        </v-dialog>
+      </div>
 
-      <router-link to="/Inicial"><v-btn block="">Voltar</v-btn></router-link>
-      <v-btn color="grey-darken-2" block class="mt-2" @click="delLists()"
-        >Deletar</v-btn
-      >
       <router-link :to="`/addListItem/${this.id}`">
         <v-btn color="grey-darken-2" block class="mt-2"
           >Adicionar List Items</v-btn
@@ -74,9 +113,9 @@ export default {
     let title = "";
     return {
       id: this.$props.selectedList,
-      title: this.title,
       itemList: [],
-      dialog: false,
+      dialog1: false,
+      dialog2: false,
     };
   },
   methods: {
@@ -119,7 +158,7 @@ export default {
       try {
         await this.uptItem(this.id, payload);
         this.$emit("snackbar", "Item atualizado com sucesso!!");
-        this.dialog = false;
+        this.dialog1 = false;
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de Atualizar!");
       }
