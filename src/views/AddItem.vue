@@ -42,14 +42,22 @@
       </v-card>
     </v-form>
   </v-card-text>
+  <LoadingComponent v-if="loading" />
 </template>
 
 <script>
 import { toDoListItemApiMixin } from "@/api/toDoItem";
+import LoadingComponent from "@/components/Loading.vue";
 
 export default {
   mixins: [toDoListItemApiMixin],
+
+  components: {
+    LoadingComponent,
+  },
+
   data: () => ({
+    loading: false,
     isFormValid: false,
     title: "",
     titleRules: [
@@ -75,6 +83,7 @@ export default {
       return adjustedDate.toISOString();
     },
     async handleSubmit() {
+      this.loading = true;
       const payload = {
         title: this.title,
         deadline: this.dateToISOString(this.myDate),
@@ -99,6 +108,7 @@ export default {
           );
         }
       }
+      this.loading = false;
     },
 
     handleDateChange(e) {

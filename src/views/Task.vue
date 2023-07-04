@@ -114,18 +114,29 @@
       </v-card>
     </v-form>
   </v-card-text>
+  <LoadingComponent v-if="loading" />
 </template>
+
 <script>
 import { toDoListApiMixin } from "@/api/toDoList";
 import moment from "moment";
+import LoadingComponent from "@/components/Loading.vue";
+
 export default {
   mixins: [toDoListApiMixin],
+
+  components: {
+    LoadingComponent,
+  },
+
   props: {
     selectedList: String,
   },
+
   data() {
     let title = "";
     return {
+      loading: false,
       id: this.$props.selectedList,
       itemList: [],
       dialog1: false,

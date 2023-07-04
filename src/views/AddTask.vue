@@ -31,15 +31,22 @@
       </v-card>
     </v-form>
   </v-card-text>
+  <LoadingComponent v-if="loading" />
 </template>
 
 <script>
-/* import required from "@/utils/validation/required";
- */ import { toDoListApiMixin } from "@/api/toDoList";
+import { toDoListApiMixin } from "@/api/toDoList";
+import LoadingComponent from "@/components/Loading.vue";
 
 export default {
   mixins: [toDoListApiMixin],
+
+  components: {
+    LoadingComponent,
+  },
+
   data: () => ({
+    loading: false,
     title: "",
     titleRules: [
       (value) => {
@@ -53,6 +60,7 @@ export default {
 
   methods: {
     async handleSubmit() {
+      this.loading = true;
       const payload = {
         title: this.title,
       };
@@ -75,6 +83,7 @@ export default {
           );
         }
       }
+      this.loading = false;
     },
   },
 };

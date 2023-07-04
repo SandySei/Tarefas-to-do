@@ -54,7 +54,7 @@
         </div>
       </v-navigation-drawer>
 
-      <v-main>
+      <v-main class="overflow-visible h-screen">
         <router-view
           @getLists="getLists"
           :lists="sortedLists"
@@ -118,4 +118,3 @@ export default {
 };
 </script>
 
-<style></style>

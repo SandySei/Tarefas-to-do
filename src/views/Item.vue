@@ -11,7 +11,9 @@
         Voltar
       </v-btn>
 
-      <v-card-title class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded  text-center">
+      <v-card-title
+        class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded text-center"
+      >
         Editar Item da Lista!
       </v-card-title>
 
@@ -52,14 +54,22 @@
       </v-card>
     </v-form>
   </v-card-text>
+  <LoadingComponent v-if="loading" />
 </template>
 
 <script>
 import { toDoListItemApiMixin } from "@/api/toDoItem";
+import LoadingComponent from "@/components/Loading.vue";
 
 export default {
   mixins: [toDoListItemApiMixin],
+
+  components: {
+    LoadingComponent,
+  },
+
   data: () => ({
+    loading: false,
     title: "",
     myDate: "",
     id: null,
@@ -80,6 +90,7 @@ export default {
       return adjustedDate.toISOString().slice(0, 16);
     },
     async getItemLists() {
+      this.loading = true;
       try {
         const { data } = await this.viewListItem(this.id);
         this.title = data.title;
@@ -92,8 +103,10 @@ export default {
           "Algo deu errado na hora de puxar esse item list!"
         );
       }
+      this.loading = false;
     },
     async handleSubmit() {
+      this.loading = true;
       const dataCorrigida = new Date(this.myDate);
       const payload = {
         done: this.done,
@@ -119,8 +132,10 @@ export default {
           );
         }
       }
+      this.loading = false;
     },
     async deleteItem() {
+      this.loading = true;
       try {
         await this.delListItem(this.id);
         this.$emit("snackbar", "Item da lista apagado com sucesso!");
@@ -139,6 +154,7 @@ export default {
           );
         }
       }
+      this.loading = false;
     },
   },
   mounted() {
