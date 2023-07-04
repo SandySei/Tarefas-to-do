@@ -31,10 +31,10 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
       },
       {
-        path: "/addItem",
-        name: "addItem",
+        path: "/addtask",
+        name: "AddTask",
         component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/addItem.vue"),
+          import(/* webpackChunkName: "home" */ "@/views/AddTask.vue"),
       },
       {
         path: "/viewItem/:id",

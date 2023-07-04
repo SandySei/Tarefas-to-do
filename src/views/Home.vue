@@ -11,7 +11,7 @@
       ></v-text-field>
 
       <div class="w-25">
-        <router-link to="/addItem" class="text-decoration-none">
+        <router-link to="/addtask" class="text-decoration-none">
           <v-card
             prepend-icon="mdi-plus"
             class="ml-3 d-flex altura-x add"
@@ -24,16 +24,14 @@
     </div>
 
     <div class="animate__animated animate__flipInX">
-    <v-img
-      height="100"
-      src="@/assets/TarefasInicial.png"
-      class="mt-5 mb-5 "
-    ></v-img>
+      <v-img
+        height="100"
+        src="@/assets/TarefasInicial.png"
+        class="mt-5 mb-5"
+      ></v-img>
     </div>
 
-    <div
-      class="bg-grey-darken-4 pa-4 rounded-lg elevation-10 mb-5"
-    >
+    <div class="bg-grey-darken-4 pa-4 rounded-lg elevation-10 mb-5">
       <v-card-title class="text-red-accent-4">Minhas Listas:</v-card-title>
       <div class="pl-2 pr-2">
         <v-card

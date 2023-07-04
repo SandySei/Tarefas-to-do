@@ -17,7 +17,7 @@
             <v-list-item
               prepend-icon="mdi mdi-plus"
               title="Adicionar Lista de Tarefas"
-              to="/addItem"
+              to="/addtask"
             ></v-list-item>
 
             <v-list-item
