@@ -91,7 +91,7 @@
         </v-dialog>
       </div>
 
-      <router-link :to="`/addListItem/${this.id}`">
+      <router-link :to="`/additem/${this.id}`">
         <v-btn class="w-100 mt-1 mb-3 bg-grey-darken-3" prepend-icon="mdi-plus"
           >Adicionar Item na Lista</v-btn
         ></router-link
