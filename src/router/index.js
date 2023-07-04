@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    component: () => import("@/layouts/default/Default.vue"),
+    component: () => import("@/layouts/default/DefaultLogin.vue"),
     children: [
       {
         path: "/",
@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: "/",
-    component: () => import("@/layouts/default/DefaultTarefas.vue"),
+    component: () => import("@/layouts/default/DefaultHome.vue"),
     children: [
       {
         path: "/inicial",
