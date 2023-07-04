@@ -40,7 +40,7 @@
           class="my-2 bg-grey-darken-3"
         >
           <router-link
-            :to="`/viewItem/${list.id}`"
+            :to="`/task/${list.id}`"
             class="text-decoration-none d-flex align-center justify-space-between pl-15 pr-16"
           >
             <v-card-title class="text-white">{{ list.title }}</v-card-title>

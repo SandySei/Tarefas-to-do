@@ -6,7 +6,7 @@
       <v-btn
         class="w-100 mb-3"
         prepend-icon="mdi-arrow-left"
-        :to="`/viewItem/${idPai}`"
+        :to="`/task/${idPai}`"
       >
         Voltar
       </v-btn>
@@ -104,7 +104,7 @@ export default {
       try {
         await this.uptListItem(this.id, payload);
         this.$emit("snackbar", "Item da lista atualizado com sucesso!");
-        this.$router.push(`/viewItem/${this.idPai}`);
+        this.$router.push(`/task/${this.idPai}`);
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {
@@ -124,7 +124,7 @@ export default {
       try {
         await this.delListItem(this.id);
         this.$emit("snackbar", "Item da lista apagado com sucesso!");
-        this.$router.push(`/viewItem/${this.idPai}`);
+        this.$router.push(`/task/${this.idPai}`);
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {

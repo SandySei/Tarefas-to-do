@@ -6,7 +6,7 @@
       <v-btn
         class="w-100 mb-3"
         prepend-icon="mdi-arrow-left"
-        :to="`/viewItem/${id}`"
+        :to="`/task/${id}`"
       >
         Voltar
       </v-btn>
@@ -84,7 +84,7 @@ export default {
       try {
         await this.addListItem(payload);
         this.$emit("snackbar", "Item da lista criado com sucesso!");
-        this.$router.push(`/viewItem/${this.id}`);
+        this.$router.push(`/task/${this.id}`);
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {

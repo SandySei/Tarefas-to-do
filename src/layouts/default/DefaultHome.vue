@@ -32,7 +32,7 @@
               prepend-icon="mdi-check-all"
               v-for="list in sortedLists"
               :key="list.id"
-              :to="`/viewItem/${list.id}`"
+              :to="`/task/${list.id}`"
               :title="list.title"
             >
             </v-list-item>
