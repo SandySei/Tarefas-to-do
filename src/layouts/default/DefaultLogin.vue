@@ -10,7 +10,7 @@
         <router-link to="/" class="w-100 h-100">
           <v-tab class="text-black w-100 h-100" value="Entrar"> Entar </v-tab>
         </router-link>
-        <router-link to="/cadastro" class="w-100 h-100">
+        <router-link to="/register" class="w-100 h-100">
           <v-tab class="text-black w-100 h-100" value="Cadastro">
             Cadastro
           </v-tab>
