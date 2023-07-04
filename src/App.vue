@@ -49,3 +49,12 @@ window.addEventListener("focus", function () {
   document.title = "Tarefas";
 });
 </script>
+
+<style>
+html {
+  overflow: hidden !important;
+  height: 100vh;
+  width: 100vw;
+}
+
+</style>

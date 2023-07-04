@@ -29,10 +29,10 @@
           <v-card>
             <v-container class="bg-grey-darken-3">
               <v-card-text class="text-h4 text-cyan text-center"
-                >Aletere o título</v-card-text
+                >Altere o título</v-card-text
               >
               <v-text-field
-                v-model="title"
+                v-model="newTitle"
                 label="Título do item "
               ></v-text-field>
               <v-card-text>
@@ -124,7 +124,7 @@ import LoadingComponent from "@/components/Loading.vue";
 
 export default {
   mixins: [toDoListApiMixin],
-
+  emits: ["snackbar"],
   components: {
     LoadingComponent,
   },
@@ -132,10 +132,15 @@ export default {
   props: {
     selectedList: String,
   },
-
+  watch: {
+    dialog1() {
+      this.newTitle = this.title;
+    },
+  },
   data() {
     let title = "";
     return {
+      newTitle: "",
       loading: false,
       id: this.$props.selectedList,
       itemList: [],
@@ -163,12 +168,18 @@ export default {
       }
     },
     async getLists(id) {
+      this.loading = true;
       try {
         const { data } = await this.viewItem(id);
         this.title = data.title;
+        this.newTitle = data.title;
+        this.itemList = data.items.sort((a, b) =>
+          a.title.localeCompare(b.title)
+        );
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado!");
       }
+      this.loading = false;
     },
     async delLists() {
       try {
@@ -181,7 +192,7 @@ export default {
     },
     async uptLists() {
       const payload = {
-        title: this.title,
+        title: this.newTitle,
       };
       try {
         await this.uptItem(this.id, payload);
@@ -190,16 +201,20 @@ export default {
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de Atualizar!");
       }
+      this.newTitle = "";
+      this.getLists(this.id);
     },
   },
 
   mounted() {
     this.getLists(this.id);
-    this.getItemLists(this.id);
   },
+
   updated() {
-    this.getLists(this.$props.selectedList);
-    this.getItemLists(this.$props.selectedList);
+    if (this.id != this.selectedList) {
+      this.id = this.selectedList;
+      this.getLists(this.selectedList);
+    }
   },
 };
 </script>

@@ -27,15 +27,16 @@
             ></v-list-item>
 
             <v-divider></v-divider>
-
-            <v-list-item
-              prepend-icon="mdi-check-all"
-              v-for="list in sortedLists"
-              :key="list.id"
-              :to="`/task/${list.id}`"
-              :title="list.title"
-            >
-            </v-list-item>
+            <div class="overflow-auto h-100 menuTasks">
+              <v-list-item
+                prepend-icon="mdi-check-all"
+                v-for="list in sortedLists"
+                :key="list.id"
+                :to="`/task/${list.id}`"
+                :title="list.title"
+              >
+              </v-list-item>
+            </div>
 
             <v-divider></v-divider>
           </v-list>
@@ -54,7 +55,7 @@
         </div>
       </v-navigation-drawer>
 
-      <v-main class="overflow-visible h-screen">
+      <v-main>
         <router-view
           @getLists="getLists"
           :lists="sortedLists"
@@ -70,6 +71,7 @@
 import { toDoListApiMixin } from "@/api/toDoList";
 
 export default {
+  emits: ["snackbar"],
   mixins: [toDoListApiMixin],
   data() {
     return {
@@ -103,6 +105,7 @@ export default {
       }
     },
     sendSnackbarEvent(message) {
+      this.getLists();
       this.$emit("snackbar", message);
     },
     handleMouseOver() {
@@ -118,3 +121,31 @@ export default {
 };
 </script>
 
+<style scoped>
+main {
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.menuTasks {
+  --sb-track-color: #00000000;
+  --sb-thumb-color: #4e4e4e;
+  --sb-size: 1px;
+
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+.menuTasks::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+.menuTasks::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+.menuTasks::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}
+</style>
