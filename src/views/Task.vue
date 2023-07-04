@@ -103,7 +103,7 @@
       >
         <router-link
           class="text-decoration-none text-grey-darken-3 d-flex flex-row"
-          :to="`/viewItemList/${list.id}`"
+          :to="`/item/${list.id}`"
         >
           <v-checkbox v-model="list.done"></v-checkbox>
           <v-card-title>{{ list.title }}</v-card-title>

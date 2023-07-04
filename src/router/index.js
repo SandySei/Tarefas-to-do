@@ -49,10 +49,10 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/AddItem.vue"),
       },
       {
-        path: "/viewItemList/:id",
-        name: "viewItemList",
+        path: "/item/:id",
+        name: "Item",
         component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/viewListItem.vue"),
+          import(/* webpackChunkName: "home" */ "@/views/Item.vue"),
       },
     ],
   },
