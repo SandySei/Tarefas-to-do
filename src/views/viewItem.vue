@@ -3,7 +3,7 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent class="w-50">
-      <router-link class="w-50" to="/Inicial">
+      <router-link class="w-50" to="/home">
         <v-btn class="w-100 mb-3" prepend-icon="mdi-arrow-left">
           Voltar
         </v-btn></router-link
@@ -142,8 +142,8 @@ export default {
         const { data } = await this.viewItem(id);
         this.itemList = data.items;
 
-         // Ordena o array em ordem alfabética
-         this.itemList.sort((a, b) => a.title.localeCompare(b.title));
+        // Ordena o array em ordem alfabética
+        this.itemList.sort((a, b) => a.title.localeCompare(b.title));
       } catch (err) {
         this.$emit(
           "snackbar",
@@ -163,7 +163,7 @@ export default {
       try {
         await this.delItem(this.id);
         this.$emit("snackbar", "Item apagado com sucesso!");
-        this.$router.push("/Inicial");
+        this.$router.push("/home");
       } catch (err) {
         this.$emit("snackbar", "Algo deu errado na hora de deletar!");
       }

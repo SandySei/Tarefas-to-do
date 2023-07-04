@@ -8,7 +8,7 @@
       >
         <div class="h-100 d-flex flex-column">
           <v-list>
-            <router-link to="/inicial">
+            <router-link to="/home">
               <v-img height="100" src="@/assets/TarefasMenu.png"></v-img>
             </router-link>
           </v-list>
@@ -23,7 +23,7 @@
             <v-list-item
               prepend-icon="mdi-folder-open"
               title="Minhas Tarefas"
-              to="/inicial"
+              to="/home"
             ></v-list-item>
 
             <v-divider></v-divider>

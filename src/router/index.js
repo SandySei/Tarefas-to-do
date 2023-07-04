@@ -25,10 +25,10 @@ const routes = [
     component: () => import("@/layouts/default/DefaultHome.vue"),
     children: [
       {
-        path: "/inicial",
-        name: "Inicial",
+        path: "/home",
+        name: "Home",
         component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/Inicial.vue"),
+          import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
       },
       {
         path: "/addItem",

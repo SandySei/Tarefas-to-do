@@ -3,20 +3,19 @@
     class="d-flex justify-center flex-direction:column align-self-center"
   >
     <v-form fast-fail @submit.prevent v-model="isFormValid" class="w-50">
-      <v-btn class="w-100 mb-3" prepend-icon="mdi-arrow-left" :to="`/Inicial/`">
+      <v-btn class="w-100 mb-3" prepend-icon="mdi-arrow-left" :to="`/home/`">
         Voltar
       </v-btn>
 
       <v-card-title
-          class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded text-center"
-        >
-          Adicionar Lista de Tarefas
-        </v-card-title>
+        class="pb-3 text-h4 mb-3 text-cyan-darken-1 bg-grey-darken-3 rounded text-center"
+      >
+        Adicionar Lista de Tarefas
+      </v-card-title>
 
       <v-card class="pa-4 bg-grey-lighten-2">
-    
         <v-text-field
-        prepend-icon="mdi-pencil"
+          prepend-icon="mdi-pencil"
           v-model="title"
           label="Título do item "
           :rules="titleRules"
@@ -29,7 +28,6 @@
           @click="handleSubmit"
           >Adicionar</v-btn
         >
-
       </v-card>
     </v-form>
   </v-card-text>
@@ -62,7 +60,7 @@ export default {
       try {
         await this.addItem(payload);
         this.$emit("snackbar", "Item criado com sucesso!");
-        this.$router.push("/inicial");
+        this.$router.push("/home");
       } catch (err) {
         const status = err?.response?.status;
         if (status >= 500 && status < 600) {
